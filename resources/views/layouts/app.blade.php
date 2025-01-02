@@ -3,43 +3,45 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <style>
-            .card-shadow{ 
-                box-shadow: 0 2px 8px 0 rgb(000/10%); 
-                border-radius: 5px; 
+            .card-shadow{
+                box-shadow: 0 2px 8px 0 rgb(000/10%);
+                border-radius: 5px;
             }
 
-            .category-heading{ 
-            padding: 10px 12px; 
-            border-left: 6px solid #000; 
-            background-color: #ddd; 
+            .category-heading{
+            padding: 10px 12px;
+            border-left: 6px solid #000;
+            background-color: #ddd;
             }
 
-            post-heading{ 
-            font-size: 26px; 
+            post-heading{
+            font-size: 26px;
             color: #000
             }
+
+            .underline {
+                height: 3px;
+                width: 60px;
+                background-color: #e71212 !important;
+                margin-bottom: 10px;
+            }
+
         </style>
 
-        @section('title', "$category->meta_title")
 
-        @section('meta_description', "$category->meta_description")
 
-        @section('meta_keyword', "$category->meta_keyword")
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        
+
         <title>@yield('title')</title>
 
         <meta name="meta_description" content=" @yield('meta_description')">
 
         <meta name="meta_keyword" content=" @yield('meta_keyword')">
 
-       
-
-        
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -52,7 +54,7 @@
     <body>
         <div id="app">
             @include('layouts.inc.frontend-navbar')
-            
+
             <main class="py-4">
                 @yield('content')
             </main>

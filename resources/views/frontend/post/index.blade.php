@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('title',$category->meta_title)
+
+@section('meta_description', "$category->meta_description")
+
+@section('meta_keyword', "$category->meta_keyword")
+
 @section('content')
 
     <div class="py-5">
@@ -64,7 +70,7 @@
 
                         <!-- Example Banner Ad -->
                         <div class="mt-4">
-                            <a href="https://your-ad-link.com">
+                            <a href="https://www.facebook.com/Literary-Association-of-Vishwa-Adarsha-Academy-LAVAA-61555370344258/">
                                 <img src="https://via.placeholder.com/300x250" alt="Advertisement" class="img-fluid">
                             </a>
                         </div>
@@ -73,6 +79,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 @endsection
 

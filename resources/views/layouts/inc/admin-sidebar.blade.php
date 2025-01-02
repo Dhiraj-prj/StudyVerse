@@ -12,7 +12,7 @@
                 <div class="sb-sidenav-menu-heading">Interface</div>
 
                 <!-- Category Section -->
-                <a class="nav-link {{Request::is('admin/faculty') ? 'active' : ''}}" href="{{ url('admin/faculty/')}}">
+                <a class="nav-link {{Request::is('admin/faculty', 'admin/add-faculty', 'admin/edit-faculty') ? 'active' : ''}}" href="{{ url('admin/faculty/')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
                     Faculty
                 </a>
@@ -22,15 +22,15 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Posts
                 </a>
-                
+
 
                 <a class="nav-link {{Request::is('admin/users') ? 'active' : ''}}" href="{{ url('admin/users')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     Users
                 </a>
 
-                
-              
+
+
 
                 <!-- Pages Section -->
                 <a class="nav-link collapsed " href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

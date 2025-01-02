@@ -9,6 +9,11 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Auth\LoginController;
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
 Route::get('faculty/{category_slug}', [FrontendController::class, 'ViewCategoryPost']);
