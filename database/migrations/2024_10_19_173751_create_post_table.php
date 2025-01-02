@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->mediumText('description');
+            $table->string('postType');
             $table->string('yt_iframe')->nullable();
             $table->string('meta_title');
             $table->mediumText('meta_description')->nullable();

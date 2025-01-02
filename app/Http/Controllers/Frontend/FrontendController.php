@@ -11,7 +11,8 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $all_categories = Category::where('status','0')->where('is_deleted','0')->orderBy('created_at','DESC')->paginate(5);
+        return view('frontend.index',compact('all_categories'));
     }
 
     public function ViewCategoryPost(string $category_slug)  // Ensure no extra semicolon here

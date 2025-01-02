@@ -16,6 +16,7 @@ class Post extends Model
         'subcategory',
         'name',
         'slug',
+        'postType',
         'description',
         'yt_iframe',
         'meta_title',

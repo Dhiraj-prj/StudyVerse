@@ -9,11 +9,55 @@
 @section('title', config("app.name"))
 @section('content')
 
-<div class="py-1">
+<div class="py-5 bg-gray-100">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="border p-3 bg-light shadow">
+                <h4>Faculties</h4>
+                <div class="underline"></div>
+            </div>
+
+            @foreach ($all_categories as $all_cateitem)
+                <div class="col-md-3">
+                    <div class="card card-body mb-3">
+                        <a
+                            href="{{ url('faculty/'.$all_cateitem->slug) }}"
+                            class="text-decoration-none"
+                        >
+                            <h5 class="text-dark mb-0">
+                                {{ $all_cateitem->name }}
+                            </h5>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Pagination Links -->
+                {{ $all_categories->links('pagination::bootstrap-4') }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="py-2">
+    <div class="container">
+        <div class="border text-center p-3 bg-light shadow">
+            <h3>Advertise here</h3>
+        </div>
+    </div>
+</div>
+
+
+<div class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {{-- <div class="border p-3 bg-light shadow"> --}}
                     <h4>{{ config('app.name') }}</h4>
                     <div class="underline"></div>
                     <p style="text-align: justify">
@@ -21,18 +65,14 @@
                         One of the standout features of StudyVerse is our extensive collection of past questions, study notes, and syllabus. We regularly post past exam questions across various subjects, helping students prepare more efficiently for upcoming tests. Our well-organized and easy-to-understand study notes cover key concepts, offering concise and detailed explanations that complement your learning. Additionally, we ensure that the syllabus for each subject is readily available, helping students stay on track and align their studies with the curriculum.
                         At StudyVerse, we believe in the power of collaboration. Our platform fosters a supportive community where students can share knowledge, discuss topics, and help each other out. Whether you're preparing for exams or looking to deepen your understanding of a subject, StudyVerse is your one-stop resource hub. Join us today and enhance your learning experience with the tools and support you need to excel.
                     </p>
-                </div>
+                {{-- </div> --}}
             </div>
         </div>
     </div>
 </div>
 
-<div class="py-4">
-    <div class="container">
-        <div class="border text-center p-3 bg-light shadow">
-            <h3>Advertise here</h3>
-        </div>
-    </div>
-</div>
+
+
+
 
 @endsection

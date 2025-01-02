@@ -9,23 +9,23 @@
     @extends('layouts.master')
 
     @section('content')
-    
+
     <div class="container-fluid px-4">
 
         <div class="card mt-4">
             <div class="card-header">
                 <h4 class="float-start">Add Posts</h4>
-              
+
             </div>
-    
+
             <div class="card-body">
-    
+
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="alert alert-danger">{{ $error }}</div>
                     @endforeach
                 @endif
-        
+
                 <!-- Form to create a post -->
                 <form method="POST" action="{{ route('admin.add-post') }}">
                     @csrf
@@ -44,46 +44,57 @@
                             @endforeach
                         </select>
                     </div>
-        
+
                     <div class="form-group">
                         <label for="subcategory">Level</label>
                         <select id="subcategory" name="subcategory" class="form-control">
                         </select>
                     </div>
-        
-                    
+
+                    <div class="form-group">
+                        <label for="postType">Post Type</label>
+                        <div class="custom-select-wrapper">
+                            <select name="postType" id="postType" class="form-select custom-select">
+                                <option value="note">Note</option>
+                                <option value="postQuestions">Past Questions</option>
+                                <option value="syllabus">Syllabus</option>
+                            </select>
+                        </div>
+                    </div>
+
+
 
                     <div class="mb-3">
                         <label for="">Slug</label>
                         <input type="text" name="slug" class="form-control">
                     </div>
-    
+
                     <div class="mb-3">
                         <label for="">Description</label>
                         <textarea id="mySummernote" name="description" rows="5" class="form-control"></textarea>
                     </div>
-    
+
                     <div class="mb-3">
                         <label for="">Youtube IFrame</label>
                         <input type="text" name="yt_iframe" class="form-control">
                     </div>
-    
+
                     <h4>SEO Tags</h4>
                     <div class="mb-3">
                         <label for="">Meta Title</label>
                         <input type="text" name="meta_title" class="form-control">
                     </div>
-    
+
                     <div class="mb-3">
                         <label for="">Meta Description</label>
                         <textarea name="meta_description" rows="4" class="form-control"></textarea>
                     </div>
-    
+
                     <div class="mb-3">
                         <label for="">Meta Keywords</label>
                         <input type="text" name="meta_keyword" class="form-control">
                     </div>
-    
+
                     <h4>Status</h4>
                     <div class="row">
                         <div class="col-mod-4">
@@ -93,16 +104,16 @@
                             </div>
                         </div>
                     </div>
-        
-        
-        
+
+
+
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary">Create Post</button>
                 </form>
             </div>
 
         </div>
-    
+
 
     <!-- Script to handle dynamic level fetching -->
     <script>
