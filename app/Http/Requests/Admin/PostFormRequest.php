@@ -25,6 +25,7 @@ class PostFormRequest extends FormRequest
             'name' => ['required','string'],
             'subcategory' => ['required'],
             'category_id'=> ['required','integer'],
+            'postType' => ['required'],
             'slug'=> ['required','string'],
             'description' => ['required'],
             'yt_iframe'=>['nullable','string'],

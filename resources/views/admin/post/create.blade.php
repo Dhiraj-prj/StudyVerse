@@ -56,7 +56,7 @@
                         <div class="custom-select-wrapper">
                             <select name="postType" id="postType" class="form-select custom-select">
                                 <option value="note">Note</option>
-                                <option value="postQuestions">Past Questions</option>
+                                <option value="pastQuestions">Past Questions</option>
                                 <option value="syllabus">Syllabus</option>
                             </select>
                         </div>

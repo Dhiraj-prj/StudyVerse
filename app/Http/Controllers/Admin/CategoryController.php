@@ -56,7 +56,7 @@ use App\Models\Level;
             $category->name = $data['name'];
             $category->slug = $this->generateSlug($data['name']);;
             $category->description = $data['description'];
-            
+
             $category->meta_title = $data['meta_title'];
             $category->meta_description = $data['meta_description'];
             $category->meta_keyword = $data['meta_keyword'];
@@ -94,13 +94,13 @@ use App\Models\Level;
             $slug = preg_replace('/[^a-z0-9 -]/', '', $slug); // Remove special characters
             $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
             $slug = preg_replace('/-+/', '-', $slug); // Replace multiple dashes with a single one
-    
+
             // Check if the slug already exists, and append a number if necessary
             $count = Category::where('slug', $slug)->count();
             if ($count > 0) {
                 $slug .= '-' . ($count + 1); // Append a number to make the slug unique
             }
-    
+
             return $slug;
         }
 
@@ -108,11 +108,11 @@ use App\Models\Level;
         {
             // Fetch the category using the given categoryId
             $category = Category::find($categoryId);
-        
+
             if (!$category) {
                 return response()->json(['error' => 'Category not found'], 404);
             }
-        
+
             // Determine the levels based on the category's levelType
             $levels = [];
             if ($category->levelType == 1) { // If levelType is Semester
@@ -134,10 +134,10 @@ use App\Models\Level;
                     ['id' => 4, 'name' => 'Year IV'],
                 ];
             }
-        
+
             return response()->json($levels);
         }
-        
-        
-        
+
+
+
     }

@@ -30,12 +30,13 @@ class PostController extends Controller
     {
         // Validate the request data
         $data = $request->validated();
-        
+
         // Save the data into the Post model
         $post = new Post();
         $post->category_id = $data['category_id'];
         $post->subcategory = $data['subcategory'];
         $post->name = $data['name'];
+        $post->postType = $data['postType'];
         $post->slug = $this->generateSlug($data['name'], $data['slug'] ?? null);
         $post->description = $data['description'] ?? null;
         $post->yt_iframe = $data['yt_iframe'] ?? null;
@@ -44,7 +45,7 @@ class PostController extends Controller
         $post->meta_keyword = $data['meta_keyword'] ?? null;
         $post->status = $request->has('status') ? 1 : 0;
         $post->created_by = Auth::user()->id;
-        
+
         $post->save();
 
         $posts = Post::where('is_deleted', false)->get();
@@ -61,7 +62,7 @@ class PostController extends Controller
         if (!$post) {
             return redirect('admin/posts')->with('error', 'Post not found!');
         }
-    
+
         $categories = Category::all();
         return view('admin.post.edit', compact('post', 'categories'));
     }
@@ -79,6 +80,7 @@ class PostController extends Controller
 
         // Update post fields with validated data
         $post->name = $data['name'];
+        $post->postType = $data['postType'];
         $post->slug = $this->generateSlug($data['name']);
         $post->description = $data['description'];
         $post->category_id = $data['category_id'];
@@ -100,7 +102,7 @@ class PostController extends Controller
         $post = Post::findOrFail($post_id);
         $post->is_deleted = true; // Soft delete
         $post->update();
-    
+
         return redirect('admin/post')->with('success', 'Post deleted successfully.');
     }
 
@@ -128,14 +130,14 @@ class PostController extends Controller
     {
         // Fetch category using categoryId
         $category = Category::find($categoryId);
-    
+
         if (!$category) {
             return response()->json(['error' => 'Category not found'], 404); // Return error if category not found
         }
-    
-        // Debugging output to check if category levelType is correct
-        \Log::info("Category LevelType: " . $category->levelType);
-    
+
+        // // Debugging output to check if category levelType is correct
+        // \Log::info("Category LevelType: " . $category->levelType);
+
         $levels = [];
         if ($category->levelType == 1) { // Semester type
             $levels = [
