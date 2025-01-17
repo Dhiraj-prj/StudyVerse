@@ -1,19 +1,29 @@
 @extends('layouts.app')
 
-@section('title', config("app.name"))
+@section('title', "$setting->meta_title")
+
+<style>
+    /* Hover effects */
+    .card:hover { transform: scale(1.05); }
+        .custom-btn:hover { transform: scale(1.1); opacity: 0.9; }
+        .bg-dark:hover { transform: translateY(-5px); }
+        .card-body:hover a { color: #007bff; text-decoration: underline; }
+        h3:hover { transform: scale(1.05); color: #0056b3; }
+</style>
 
 @section('content')
 
 <!-- About Section -->
-<div class="py-4 bg-light" style="background-image: url('{{ asset('images/HomeAboutSection.png') }}'); background-size: cover; background-position: center;">
+<div class="py-4 bg-light lazy-bg" style="background-image: url('{{ asset('images/HomeAboutSection (1).png') }}'); background-size: cover; background-position: center;">
     <div class="container py-2">
         <div class="row">
-            <div class="col-md-5 text-white py-5"> <!-- Changed to col-md-3 for the text area -->
+            <div class="col-md-5 text-white py-5">
                 <h2 class="font-weight-bold text-primary">{{ config('app.name') }}</h2>
-                <div class="underline mb-4"></div>
+                <div class="underline"></div>
                 <p class="lead text-light">
                     StudyVerse is a comprehensive online learning platform designed to support students in their academic journey.
-                    We provide past questions, study notes, and syllabi to make learning more accessible. Join us and enhance
+                    We provide past questions, study notes, and syllabus to make learning more accessible.</p>
+                    <p class="lead text-light">Join us and enhance
                     your learning experience with the tools and support you need to excel.
                 </p>
             </div>
@@ -95,7 +105,7 @@
 </div>
 
 <!-- Advertisement Section -->
-<div class="py-3 bg-dark text-white">
+<div class="py-3 text-white" style="background-color: #8e71d1">
     <div class="container">
         <div class="border text-center p-5 bg-light shadow-sm rounded-lg">
             <h3 class="font-weight-bold text-dark">Advertise Here</h3>
@@ -105,110 +115,32 @@
 
 @endsection
 
-@section('styles')
-<style>
-    /* Background image for About Section */
-    .bg-light {
-        background-color: #f8f9fa;
-    }
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const lazyBackgrounds = document.querySelectorAll('.lazy-bg');
 
-    .bg-white {
-        background-color: #ffffff;
-    }
+        const loadBackground = (element) => {
+            const bgUrl = element.getAttribute('data-bg');
+            if (bgUrl) {
+                element.style.backgroundImage = `url(${bgUrl})`;
+                element.classList.remove('lazy-bg');
+            }
+        };
 
-    .bg-dark {
-        background-color: #343a40;
-    }
+        const inViewport = (element) => {
+            const rect = element.getBoundingClientRect();
+            return rect.top <= window.innerHeight && rect.bottom >= 0;
+        };
 
-    .text-dark {
-        color: #343a40;
-    }
+        const onScroll = () => {
+            lazyBackgrounds.forEach(element => {
+                if (inViewport(element)) {
+                    loadBackground(element);
+                }
+            });
+        };
 
-    .text-muted {
-        color: #6c757d;
-    }
-
-    /* Button Style */
-    .custom-btn {
-        background-color: #007bff;
-        color: white;
-        font-weight: 600;
-        padding: 10px 20px;
-        border-radius: 30px;
-        transition: all 0.3s ease;
-    }
-
-    .custom-btn:hover {
-        background-color: #0056b3;
-        opacity: 0.8;
-    }
-
-    /* Card Styles */
-    .card {
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .card-shadow {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .hover-shadow:hover {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Heading Styles */
-    h3 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #343a40;
-    }
-
-    /* Underline for headings */
-    .underline {
-        width: 60px;
-        height: 3px;
-        background-color: #007bff;
-        margin: 0 auto;
-    }
-
-    /* Spacing */
-    .mb-4 {
-        margin-bottom: 1.5rem;
-    }
-
-    .mb-0 {
-        margin-bottom: 0;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .lead {
-        font-size: 1.25rem;
-        color: #6c757d;
-    }
-
-    .font-weight-bold {
-        font-weight: 700;
-    }
-
-    .p-5 {
-        padding: 3rem;
-    }
-
-    .mx-auto {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .rounded-lg {
-        border-radius: 12px;
-    }
-</style>
-@endsection
+        window.addEventListener('scroll', onScroll);
+        onScroll(); // Check initially in case the image is already in the viewport
+    });
+</script>

@@ -10,7 +10,6 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
 
     <!-- Fonts -->

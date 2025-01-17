@@ -1,7 +1,7 @@
 <div class="global-navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
         <div class="container">
-            <a class="navbar-brand" href="#">StudyVerse</a>
+            <a class="navbar-brand" href="/home">{{config('app.name')}}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -55,6 +55,14 @@
                             <li><a class="dropdown-item" href="syllabus.html?faculty=BBS&program=yearly">BBS</a></li>
                             <li><a class="dropdown-item" href="syllabus.html?faculty=BCA&program=semester">BCA</a></li>
                         </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        @if (Auth::check())
+                        <li> <a class="nav-link btn-danger  text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf </form> </li>
+                            @endif
                     </li>
                 </ul>
             </div>

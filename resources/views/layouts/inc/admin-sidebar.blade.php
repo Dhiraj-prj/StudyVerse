@@ -2,44 +2,44 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
 
-                <a class="nav-link {{Request::is('admin/dashboard') ? 'active' : ''}}" href="{{ url('admin/dashboard')}}">
+                <!-- Core Section -->
+                <div class="sb-sidenav-menu-heading">Core</div>
+                <a class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ url('admin/dashboard') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
 
+                <!-- Interface Section -->
                 <div class="sb-sidenav-menu-heading">Interface</div>
 
-                <!-- Category Section -->
-                <a class="nav-link {{Request::is('admin/faculty', 'admin/add-faculty', 'admin/edit-faculty') ? 'active' : ''}}" href="{{ url('admin/faculty/')}}">
+                <!-- Faculty Section -->
+                <a class="nav-link {{ Request::is('admin/faculty', 'admin/add-faculty', 'admin/edit-faculty') ? 'active' : '' }}" href="{{ url('admin/faculty/') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
                     Faculty
                 </a>
 
-                <!-- post Section -->
-                <a class="nav-link {{Request::is('admin/post'  , 'admin/add-post' , 'admin/edit-post') ? 'active' : ''}}" href="{{ url('admin/post')}}">
+                <!-- Posts Section -->
+                <a class="nav-link {{ Request::is('admin/post', 'admin/add-post', 'admin/edit-post') ? 'active' : '' }}" href="{{ url('admin/post') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Posts
                 </a>
 
-
-                <a class="nav-link {{Request::is('admin/users') ? 'active' : ''}}" href="{{ url('admin/users')}}">
+                <!-- Users Section -->
+                <a class="nav-link {{ Request::is('admin/users') ? 'active' : '' }}" href="{{ url('admin/users') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     Users
                 </a>
 
-
-
-
                 <!-- Pages Section -->
-                <a class="nav-link collapsed " href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                     Pages
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <!-- Authentication Pages -->
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Authentication
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -51,6 +51,8 @@
                                 <a class="nav-link" href="password.html">Forgot Password</a>
                             </nav>
                         </div>
+
+                        <!-- Error Pages -->
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                             Error
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -64,17 +66,18 @@
                         </div>
                     </nav>
                 </div>
+
+                <!-- Addons Section -->
                 <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="{{ url('admin/settings') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Charts
+                    Settings
                 </a>
-                <a class="nav-link" href="tables.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
-                </a>
+
             </div>
         </div>
+
+        <!-- Footer -->
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
             @auth

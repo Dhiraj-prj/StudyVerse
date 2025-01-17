@@ -22,9 +22,9 @@
                 }, 3000); // 3000 milliseconds = 3 seconds
             </script>
         @endif
-        
-        
 
+
+            <div class="table-responsive">
             <table id="myTable" class="table display table-bordered" style="border-top: 1px solid #dee2e6;">
                 <thead>
                     <tr>
@@ -58,6 +58,7 @@
                         @endforeach
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 </div>

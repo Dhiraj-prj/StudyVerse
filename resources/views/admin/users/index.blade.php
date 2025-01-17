@@ -17,6 +17,9 @@
                  <div class="alert alert-success">{{ session('message') }}</div>
                 @endif
 
+
+
+                <div class="table-responsive">
                 <table id="myTable" class="table display table-bordered table-fixed" style="border-top: 1px solid #dee2e6;">
                     <thead>
                         <tr>
@@ -41,7 +44,7 @@
                             <td>{{ $item -> role_as=='1' ? "Admin":"Registered User"}}</td>
                             <td>{{ $item->created_at}}</td>
                             <td>
-                                
+
                                <a href="{{url('admin/edit-users/'.$item->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i></button></a>
                                <a href="{{('delete-category/'.$item->id)}}"><button class="btn btn-danger"><i class="fas fa-eye"></i></button></a>
                             </td>
@@ -50,7 +53,7 @@
                         @endforeach
                     </tbody>
                 </table>
-
+            </div>
             </div>
         </div>
 

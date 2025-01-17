@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Category;
 use App\Models\Post;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     public function index()
     {
+        $setting = Setting::find(1);
         $all_categories = Category::where('status','0')->where('is_deleted','0')->orderBy('created_at','DESC')->paginate(5);
         $all_posts = POST::where('status','0')->where('is_deleted','0')->orderBy('created_at','DESC')->paginate(5);
-        return view('frontend.index',compact('all_categories','all_posts'));
+        return view('frontend.index',compact('all_categories','all_posts','setting'));
     }
 
     public function ViewCategoryPost(string $category_slug)  // Ensure no extra semicolon here
