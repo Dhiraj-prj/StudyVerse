@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('phone')->nullable();  // Added phone number column
             $table->date('dob')->nullable();      // Made date of birth column nullable
             $table->integer('status')->default(0);
-            $table->integer('role_as')->default(1);
+            $table->integer('role_as')->default(0);
+            $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

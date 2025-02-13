@@ -80,7 +80,7 @@ use App\Models\Level;
                 $category->save();
 
                 // Return a success message or redirect
-                return redirect('admin/faculty')->with('message', 'Category deleted successfully!');
+                return redirect('admin/faculty')->with('destroy_message', 'Faculty deleted successfully!');
             }
 
             // If the category does not exist
@@ -137,6 +137,7 @@ use App\Models\Level;
 
             return response()->json($levels);
         }
+
 
 
 

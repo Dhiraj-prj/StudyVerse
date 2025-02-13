@@ -9,6 +9,8 @@
 
     <title>@yield('title')</title>
 
+    <link rel="shortcut icon" href="{{ asset('images/fevicon.ico') }}" type="image/x-icon">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">

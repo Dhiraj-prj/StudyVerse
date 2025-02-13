@@ -41,9 +41,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('faculty', [CategoryController::class, 'index']);
     Route::get('add-faculty', [CategoryController::class, 'create']);
     Route::post('add-faculty', [CategoryController::class, 'store']);
-    Route::get('edit-category/{category_id}', [CategoryController::class, 'edit']);
-    Route::put('update-category/{category_id}', [CategoryController::class, 'update']);
-    Route::get('delete-category/{category_id}', [CategoryController::class, 'destroy']);
+    Route::get('edit-faculty/{category_id}', [CategoryController::class, 'edit']);
+    Route::put('update-faculty/{category_id}', [CategoryController::class, 'update']);
+    Route::get('delete-faculty/{category_id}', [CategoryController::class, 'destroy']);
 
     // Post Routes
     Route::get('post', [PostController::class, 'index']);
@@ -60,6 +60,11 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 
     Route::get('settings', [SettingsController::class, 'index']); // Show the settings form
     Route::put('settings', [SettingsController::class, 'update']); // Handle the form submission
+
+     // Get user details for AJAX request
+    Route::get('get-user-details/{userId}', [UsersController::class, 'getUserDetails']);
+
+
 
 
 

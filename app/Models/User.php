@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,7 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',      // Added phone field
-        'dob', 
+        'dob',
         'status',       // Added date of birth field
         'password',
     ];
@@ -45,4 +44,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the posts for the user.
+     */
+    public function posts()
+    {
+    return $this->hasMany(Post::class, 'created_by');
+    }
 }

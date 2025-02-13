@@ -18,7 +18,7 @@
                     @endforeach
                 @endif
 
-                <form action="{{ url('admin/update-category/'.$category->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('admin/update-faculty/'.$category->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -36,14 +36,14 @@
                         <label for="description" class="mb-1">Description</label>
                         <textarea name="description" id="mySummernote" class="form-control" rows="3">{{ $category->description }}</textarea>
                     </div>
-                    
+
                     <h6>Level Type</h6>
                     <div class="row mb-4">
                          <div class="col-md-3 md3">
                             <input type="radio" name="levelType" value="1" {{ $category->levelType == 1 ? 'checked' : '' }}>
                             <label for="levelType">is Semester</label>
                          </div>
-                         
+
                          <div class="col-md-3 md3">
                             <input type="radio" name="levelType" value="2" {{ $category->levelType == 2 ? 'checked' : '' }}>
                             <label for="levelType">is Year</label>

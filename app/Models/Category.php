@@ -27,4 +27,9 @@ class Category extends Model
     {
         return $this->belongsTo(User::class, 'created_by'); // Link to the User model
     }
+
+    public function posts()
+{
+    return $this->hasMany(Post::class, 'category_id'); // Assuming 'category_id' is the foreign key in the 'posts' table
+}
 }

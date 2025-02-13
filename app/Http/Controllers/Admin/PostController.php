@@ -51,8 +51,9 @@ class PostController extends Controller
         $posts = Post::where('is_deleted', false)->get();
 
         // Redirect with a success message
+        session()->flash('message', 'Post created successfully.');
         session()->regenerate();
-        return view('admin.post.index', compact('posts'))->with('message', 'Post created successfully.');
+        return view('admin.post.index', compact('posts'));
     }
 
     public function edit($post_id)
@@ -103,7 +104,7 @@ class PostController extends Controller
         $post->is_deleted = true; // Soft delete
         $post->update();
 
-        return redirect('admin/post')->with('success', 'Post deleted successfully.');
+        return redirect('admin/post')->with('destroy_message', 'Post deleted successfully.');
     }
 
     private function generateSlug($name, $slug = null)
