@@ -13,10 +13,10 @@
                 <!-- Interface Section -->
                 <div class="sb-sidenav-menu-heading">Interface</div>
 
-                <!-- Faculty Section -->
-                <a class="nav-link {{ Request::is('admin/faculty', 'admin/add-faculty', 'admin/edit-faculty/*') ? 'active' : '' }}" href="{{ url('admin/faculty/') }}">
+                <!-- program Section -->
+                <a class="nav-link {{ Request::is('admin/program', 'admin/add-program', 'admin/edit-program/*') ? 'active' : '' }}" href="{{ url('admin/program/') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
-                    Faculty
+                    program
                 </a>
 
                 <!-- Posts Section -->

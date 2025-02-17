@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class Category extends Model
+class Program extends Model
 {
     use HasFactory;
 
@@ -30,6 +30,6 @@ class Category extends Model
 
     public function posts()
 {
-    return $this->hasMany(Post::class, 'category_id'); // Assuming 'category_id' is the foreign key in the 'posts' table
+    return $this->hasMany(Post::class, 'program_id'); // Assuming 'program_id' is the foreign key in the 'posts' table
 }
 }

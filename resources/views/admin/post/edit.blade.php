@@ -20,7 +20,7 @@
                     <div class="alert alert-danger">{{ $error }}</div>
                 @endforeach
             @endif
-    
+
             <!-- Form to edit a post -->
             <form action="{{ url('admin/edit-post/' . $post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -32,21 +32,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="faculty">Category</label>
-                    <select id="faculty" name="category_id" class="form-control">
-                        <option value="">Select Category</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : '' }}>
-                                {{ $category->name }}
+                    <label for="program">Program</label>
+                    <select id="program" name="Program_id" class="form-control">
+                        <option value="">Select Program</option>
+                        @foreach($categories as $Program)
+                            <option value="{{ $Program->id }}" {{ $Program->id == $post->Program_id ? 'selected' : '' }}>
+                                {{ $Program->name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="subcategory">Level</label>
-                    <select id="subcategory" name="subcategory" class="form-control">
-                        {{-- <option value="{{$post->subcategory}}"></option> --}}
+                    <label for="subProgram">Level</label>
+                    <select id="subProgram" name="subProgram" class="form-control">
+                        {{-- <option value="{{$post->subProgram}}"></option> --}}
                     </select>
                 </div>
 
@@ -102,56 +102,55 @@
     @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const facultySelect = document.getElementById('faculty');
-            const subcategorySelect = document.getElementById('subcategory');
-    
-            function populateSubcategory() {
-                const categoryId = facultySelect.value;
-    
-                // Update the subcategory select to show loading text or default
-                subcategorySelect.innerHTML = '<option value="">{{ $post->subcategory ? "Loading current level..." : "Select Level" }}</option>';
-    
-                if (!categoryId) return;
-    
-                // Fetch levels for the selected category
-                fetch(`/admin/get-levels/${categoryId}`)
+            const programSelect = document.getElementById('program');
+            const subProgramSelect = document.getElementById('subProgram');
+
+            function populateSubProgram() {
+                const ProgramId = programSelect.value;
+
+                // Update the subProgram select to show loading text or default
+                subProgramSelect.innerHTML = '<option value="">{{ $post->subProgram ? "Loading current level..." : "Select Level" }}</option>';
+
+                if (!ProgramId) return;
+
+                // Fetch levels for the selected Program
+                fetch(`/admin/get-levels/${ProgramId}`)
                     .then(response => response.json())
                     .then(data => {
                         // Clear existing options
-                        subcategorySelect.innerHTML = '<option value="">Select Level</option>';
-    
+                        subProgramSelect.innerHTML = '<option value="">Select Level</option>';
+
                         // Check if the response contains data (levels)
                         if (Array.isArray(data) && data.length > 0) {
                             data.forEach(level => {
                                 const option = document.createElement('option');
                                 option.value = level.id;
                                 option.textContent = level.name;
-    
-                                // Pre-select the current subcategory if it's the same level
-                                if (String(level.id) === String("{{ $post->subcategory }}")) {
+
+                                // Pre-select the current subProgram if it's the same level
+                                if (String(level.id) === String("{{ $post->subProgram }}")) {
                                     option.selected = true;
                                 }
-    
-                                subcategorySelect.appendChild(option);
+
+                                subProgramSelect.appendChild(option);
                             });
                         } else {
                             // If no levels found, show a message in the dropdown
-                            subcategorySelect.innerHTML = '<option value="">No levels available</option>';
+                            subProgramSelect.innerHTML = '<option value="">No levels available</option>';
                         }
                     })
                     .catch(error => {
                         console.error('Error fetching levels:', error);
                         alert('Failed to fetch levels. Please try again later.');
-                        subcategorySelect.innerHTML = '<option value="">Error fetching levels</option>';
+                        subProgramSelect.innerHTML = '<option value="">Error fetching levels</option>';
                     });
             }
-    
-            // Initially populate the subcategory when the page loads
-            if (facultySelect) {
-                populateSubcategory();
-                facultySelect.addEventListener('change', populateSubcategory);
+
+            // Initially populate the subProgram when the page loads
+            if (programSelect) {
+                populateSubProgram();
+                programSelect.addEventListener('change', populateSubProgram);
             }
         });
     </script>
     @endsection
-    

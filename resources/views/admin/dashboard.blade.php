@@ -18,13 +18,13 @@
                     <div class="d-flex align-items-center">
                         <i class="fas fa-tags fa-3x text-primary me-3"></i>
                         <div>
-                            <h5 class="card-title text-primary">Total Faculties</h5>
+                            <h5 class="card-title text-primary">Total programs</h5>
                             <h2 class="font-weight-bold">{{ $categories }}</h2>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer d-flex align-items-center justify-content-between bg-light">
-                    <a class="small text-primary stretched-link" href="{{url('admin/faculty')}}">View Details</a>
+                    <a class="small text-primary stretched-link" href="{{url('admin/program')}}">View Details</a>
                     <div class="small text-primary"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -147,10 +147,10 @@
     {{-- Chart --}}
     <div class="card shadow-lg mt-4">
         <div class="card-header bg-info text-white">
-            Posts by Category
+            Posts by Program
         </div>
         <div class="card-body">
-            <canvas id="categoryChart"></canvas>
+            <canvas id="ProgramChart"></canvas>
         </div>
     </div>
 </div>
@@ -160,13 +160,13 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const ctx = document.getElementById('categoryChart').getContext('2d');
-    const categoryChart = new Chart(ctx, {
+    const ctx = document.getElementById('ProgramChart').getContext('2d');
+    const ProgramChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: @json($categoriesData->pluck('name')),
             datasets: [{
-                label: 'Posts per Category',
+                label: 'Posts per Program',
                 data: @json($categoriesData->pluck('posts_count')),
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',

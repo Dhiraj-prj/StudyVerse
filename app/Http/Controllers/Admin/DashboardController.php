@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\Program;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $pendingUsers = User::where('status', 'pending')->count(); // Correct the model to User
 
         // Total counts (existing)
-        $categories = Category::count();
+        $categories = Program::count();
         $posts = Post::where('is_deleted', '0')->count(); // Filter deleted posts
         $users = User::where('role_as', '0')->count(); // Adjust for regular users
         $admins = User::where('role_as', '1')->count(); // Admin users
@@ -25,8 +25,8 @@ class DashboardController extends Controller
         $recentPosts = Post::orderBy('created_at', 'desc')->take(5)->get(); // 5 recent posts
         $recentUsers = User::orderBy('created_at', 'desc')->take(5)->get(); // 5 most recent users
 
-        // Category posts data for chart
-        $categoriesData = Category::withCount('posts')->get();
+        // Program posts data for chart
+        $categoriesData = Program::withCount('posts')->get();
 
         // Returning data to view
         return view('admin.dashboard', compact(

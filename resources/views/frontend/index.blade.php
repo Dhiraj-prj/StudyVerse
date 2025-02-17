@@ -31,21 +31,21 @@
     </div>
 </div>
 
-<!-- Faculties Section -->
+<!-- programs Section -->
 <div class="py-4 bg-white mt-5 shadow-sm">
     <div class="container">
         <div class="row mb-5 text-center">
             <div class="col-md-12">
-                <h3 class="font-weight-bold text-dark">Faculties</h3>
+                <h3 class="font-weight-bold text-dark">programs</h3>
                 <div class="underline mx-auto mb-4"></div>
             </div>
 
-            @foreach ($all_categories as $category)
+            @foreach ($all_categories as $Program)
                 <div class="col-md-3 mb-4">
                     <div class="card border-0 rounded-lg shadow-sm hover-shadow">
                         <div class="card-body text-center">
-                            <a href="{{ url('faculty/'.$category->slug) }}" class="text-decoration-none text-dark">
-                                <h5 class="mb-0">{{ $category->name }}</h5>
+                            <a href="{{ url('program/'.$Program->slug) }}" class="text-decoration-none text-dark">
+                                <h5 class="mb-0">{{ $Program->name }}</h5>
                             </a>
                         </div>
                     </div>
@@ -53,11 +53,11 @@
             @endforeach
 
             <div class="text-center mt-4">
-                <a href="{{ url('faculty') }}" class="btn btn-primary custom-btn">See More</a>
+                <a href="{{ url('program') }}" class="btn btn-primary custom-btn">See More</a>
             </div>
         </div>
 
-        <!-- Pagination for Faculties -->
+        <!-- Pagination for programs -->
         <div class="row">
             <div class="col-md-12 text-center">
                 {{ $all_categories->links('pagination::bootstrap-5') }}
@@ -79,7 +79,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="card border-0 rounded-lg shadow-sm hover-shadow">
                         <div class="card-body">
-                            <a href="{{ url('faculty/'.$post->category->slug.'/'.$post->slug) }}" class="text-decoration-none text-dark">
+                            <a href="{{ url('program/'.$post->Program->slug.'/'.$post->slug) }}" class="text-decoration-none text-dark">
                                 <h5 class="mb-0">{{ $post->name }}</h5>
                             </a>
                             <p class="text-muted small mb-0">

@@ -7,18 +7,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- Faculties Dropdown -->
+                    <!-- programs Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Faculties
+                            programs
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             @php
-                                $categories = App\Models\Category::where("navbar_status", "0")->where('status', '0')->where('is_deleted','0')->get();
+                                $categories = App\Models\Program::where("navbar_status", "0")->where('status', '0')->where('is_deleted','0')->get();
                             @endphp
 
                             @foreach($categories as $cateitem)
-                                <li><a class="dropdown-item" href="{{url('faculty/'.$cateitem->slug)}}">{{$cateitem->name}}</a></li>
+                                <li><a class="dropdown-item" href="{{url('program/'.$cateitem->slug)}}">{{$cateitem->name}}</a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -29,9 +29,9 @@
                             Notes
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="notesDropdown">
-                            <li><a class="dropdown-item" href="notes.html?faculty=BBS&program=yearly">BBS</a></li>
-                            <li><a class="dropdown-item" href="notes.html?faculty=BBA&program=semester">BBA</a></li>
-                            <li><a class="dropdown-item" href="notes.html?faculty=BCA&program=yearly">BCA</a></li>
+                            <li><a class="dropdown-item" href="notes.html?program=BBS&program=yearly">BBS</a></li>
+                            <li><a class="dropdown-item" href="notes.html?program=BBA&program=semester">BBA</a></li>
+                            <li><a class="dropdown-item" href="notes.html?program=BCA&program=yearly">BCA</a></li>
                         </ul>
                     </li>
 
@@ -41,8 +41,8 @@
                             Past Questions
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="questionsDropdown">
-                            <li><a class="dropdown-item" href="past-questions.html?faculty=BBS&program=yearly">BBS</a></li>
-                            <li><a class="dropdown-item" href="past-questions.html?faculty=BBA&program=semester">BBA</a></li>
+                            <li><a class="dropdown-item" href="past-questions.html?program=BBS&program=yearly">BBS</a></li>
+                            <li><a class="dropdown-item" href="past-questions.html?program=BBA&program=semester">BBA</a></li>
                         </ul>
                     </li>
 
@@ -52,8 +52,8 @@
                             Syllabus
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="syllabusDropdown">
-                            <li><a class="dropdown-item" href="syllabus.html?faculty=BBS&program=yearly">BBS</a></li>
-                            <li><a class="dropdown-item" href="syllabus.html?faculty=BCA&program=semester">BCA</a></li>
+                            <li><a class="dropdown-item" href="syllabus.html?program=BBS&program=yearly">BBS</a></li>
+                            <li><a class="dropdown-item" href="syllabus.html?program=BCA&program=semester">BCA</a></li>
                         </ul>
                     </li>
 

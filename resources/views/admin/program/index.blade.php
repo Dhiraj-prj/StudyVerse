@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','Faculty')
+@section('title','program')
 
 @section('content')
 
@@ -9,8 +9,8 @@
 
         <div class="card mt-4">
             <div class="card-header">
-                <h4 class="float-start">View Faculty</h4>
-                <a href="{{url('admin/add-faculty')}}" class="btn btn-primary float-end btn-sm"> Add Faculty</a>
+                <h4 class="float-start">View program</h4>
+                <a href="{{url('admin/add-program')}}" class="btn btn-primary float-end btn-sm"> Add program</a>
             </div>
 
             <div class="card-body">
@@ -37,7 +37,7 @@
                         <thead>
                             <tr style="margin-top:10ox;">
                                 <th style="width: 10%;">S.N.</th>
-                                <th style="width: 30%;">Faculty Name</th>
+                                <th style="width: 30%;">program Name</th>
                                 <th style="width: 10%;">Level Type</th>
                                 <th style="width: 15%;">Status</th>
                                 <th style="width: 10%;">Created by</th>
@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($category as $index => $item)
+                            @foreach ($Program as $index => $item)
                             <tr>
                                 <td>{{ $index + 1}}</td>
                                 <td>{{ $item->name}}</td>
@@ -53,8 +53,8 @@
                                 <td>{{ $item->status == '1' ? "Hidden" : "Shown"}}</td>
                                 <td>{{ $item->Created_by->name ?? 'N/A' }}</td>
                                 <td>
-                                    <a href="{{url('admin/edit-faculty/'.$item->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i></button></a>
-                                    <a href="{{('delete-faculty/'.$item->id)}}" onclick="return confirm('Are you sure you want to delete this faculty?')"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
+                                    <a href="{{url('admin/edit-program/'.$item->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i></button></a>
+                                    <a href="{{('delete-program/'.$item->id)}}" onclick="return confirm('Are you sure you want to delete this program?')"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
                                 </td>
                             </tr>
                             @endforeach

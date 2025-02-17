@@ -38,7 +38,7 @@
                             <tr>
                                 <th style="width: 10%;">S.N.</th>
                                 <th style="width: 30%;">Post Title</th>
-                                <th style="width: 15%;">Faculty</th>
+                                <th style="width: 15%;">program</th>
                                 <th style="width: 10%;">Level</th>
                                 <th style="width: 10%;">Status</th>
                                 <th style="width: 15%;">Created by</th>
@@ -50,8 +50,8 @@
                             <tr>
                                 <td>{{ $index + 1}}</td>
                                 <td>{{ $post->name}}</td>
-                               <td>{{ optional($post->Category)->name }}</td>
-                                <td>{{ $post->subcategory }}</td>
+                               <td>{{ optional($post->Program)->name }}</td>
+                                <td>{{ $post->subProgram }}</td>
                                 <td>{{ $post->status == '1' ? "Published" : "Draft"}}</td>
                                 <td>{{ $post->Created_by->name ?? 'N/A' }}</td>
                                 <td>

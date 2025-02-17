@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title',$category->meta_title)
+@section('title',$Program->meta_title)
 
-@section('meta_description', "$category->meta_description")
+@section('meta_description', "$Program->meta_description")
 
-@section('meta_keyword', "$category->meta_keyword")
+@section('meta_keyword', "$Program->meta_keyword")
 
 @section('content')
 
@@ -12,14 +12,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="category-heading">
-                        <h4>{{ $category->name }}</h4>
+                    <div class="Program-heading">
+                        <h4>{{ $Program->name }}</h4>
                     </div>
 
                     @forelse ($posts as $postitem)
                         <div class="card card-shadow mt-4">
                             <div class="card-body">
-                                <a href="{{ url('faculty/'.$category->slug .'/' . $postitem->slug)}}" class="text-decoration-none">
+                                <a href="{{ url('program/'.$Program->slug .'/' . $postitem->slug)}}" class="text-decoration-none">
                                     <h2 class="post-heading">{{ $postitem->name }}</h2>
                                 </a>
                                 <div class="container">

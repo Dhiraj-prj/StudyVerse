@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','Add Faculty')
+@section('title','Add program')
 @section('content')
 
 <div>
@@ -9,7 +9,7 @@
         <div class="card mt-4">
 
             <div class="card-header">
-                <h4>Add Faculty</h4>
+                <h4>Add program</h4>
 
             </div>
             <div class="card-body">
@@ -21,12 +21,12 @@
                 @endif
 
 
-                <form action="{{url('admin/add-faculty')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('admin/add-program')}}" method="POST" enctype="multipart/form-data">
 
                     @csrf
 
                     <div class="mb-3">
-                        <label for="" class="mb-1">Faculty Name</label>
+                        <label for="" class="mb-1">program Name</label>
                         <input type="text" name="name" class="form-control">
                     </div>
 
@@ -46,7 +46,7 @@
                             <input type="radio" name="levelType" value="1">
                         <label for="levelType">is Semester</label>
                         </div>
-                        
+
                         <div class="col-md-3 md3">
                             <input type="radio" name="levelType" value="2">
                         <label for="levelType">is Year</label>
@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary">Create Category</button>
+                        <button type="submit" class="btn btn-primary">Create Program</button>
                     </div>
                 </form>
             </div>

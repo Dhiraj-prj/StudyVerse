@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequestForm extends FormRequest
+class ProgramRequestForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,7 +34,7 @@ class CategoryRequestForm extends FormRequest
             'status' => ['nullable'],
         ];
 
-        // If the request is not updating (i.e., creating a new category), make image required
+        // If the request is not updating (i.e., creating a new Program), make image required
         if ($this->isMethod('post')) {
             $rules['image'] = ['nullable', 'mimes:jpg,jpeg,png', 'max:2500'];
         } else {

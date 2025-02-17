@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Category;
+use App\Models\Program;
 use App\Models\Comment;
 
 class Post extends Model
@@ -15,8 +15,8 @@ class Post extends Model
     protected $table = 'post';
 
     protected $fillable = [
-        'category_id',
-        'subcategory',
+        'Program_id',
+        'subProgram',
         'name',
         'slug',
         'postType',
@@ -29,10 +29,10 @@ class Post extends Model
         'created_by',
     ];
 
-    // Define the relationship with the Category model
-    public function category()
+    // Define the relationship with the Program model
+    public function Program()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id'); // Corrected the foreign and local keys
+        return $this->belongsTo(Program::class, 'Program_id', 'id'); // Corrected the foreign and local keys
     }
 
 

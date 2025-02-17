@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use App\Models\Category;
+use App\Models\Program;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\PostFormRequest;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class PostController extends Controller
     public function create()
     {
         // Fetch categories that are active (status = 0) and not deleted
-        $categories = Category::where('status', 0)->where('is_deleted', 0)->get();
+        $categories = Program::where('status', 0)->where('is_deleted', 0)->get();
 
         // Pass the categories to the Blade view
         return view('admin.post.create', compact('categories'));
@@ -33,8 +33,8 @@ class PostController extends Controller
 
         // Save the data into the Post model
         $post = new Post();
-        $post->category_id = $data['category_id'];
-        $post->subcategory = $data['subcategory'];
+        $post->Program_id = $data['Program_id'];
+        $post->subProgram = $data['subProgram'];
         $post->name = $data['name'];
         $post->postType = $data['postType'];
         $post->slug = $this->generateSlug($data['name'], $data['slug'] ?? null);
@@ -64,7 +64,7 @@ class PostController extends Controller
             return redirect('admin/posts')->with('error', 'Post not found!');
         }
 
-        $categories = Category::all();
+        $categories = Program::all();
         return view('admin.post.edit', compact('post', 'categories'));
     }
 
@@ -84,7 +84,7 @@ class PostController extends Controller
         $post->postType = $data['postType'];
         $post->slug = $this->generateSlug($data['name']);
         $post->description = $data['description'];
-        $post->category_id = $data['category_id'];
+        $post->Program_id = $data['Program_id'];
         $post->yt_iframe = $data['yt_iframe'];
         $post->meta_title = $data['meta_title'];
         $post->meta_description = $data['meta_description'];
@@ -127,20 +127,20 @@ class PostController extends Controller
         return $slug;
     }
 
-    public function getLevels($categoryId)
+    public function getLevels($ProgramId)
     {
-        // Fetch category using categoryId
-        $category = Category::find($categoryId);
+        // Fetch Program using ProgramId
+        $Program = Program::find($ProgramId);
 
-        if (!$category) {
-            return response()->json(['error' => 'Category not found'], 404); // Return error if category not found
+        if (!$Program) {
+            return response()->json(['error' => 'Program not found'], 404); // Return error if Program not found
         }
 
-        // // Debugging output to check if category levelType is correct
-        // \Log::info("Category LevelType: " . $category->levelType);
+        // // Debugging output to check if Program levelType is correct
+        // \Log::info("Program LevelType: " . $Program->levelType);
 
         $levels = [];
-        if ($category->levelType == 1) { // Semester type
+        if ($Program->levelType == 1) { // Semester type
             $levels = [
                 ['id' => 1, 'name' => 'Semester I'],
                 ['id' => 2, 'name' => 'Semester II'],
@@ -151,7 +151,7 @@ class PostController extends Controller
                 ['id' => 7, 'name' => 'Semester VII'],
                 ['id' => 8, 'name' => 'Semester VIII'],
             ];
-        } elseif ($category->levelType == 2) { // Year type
+        } elseif ($Program->levelType == 2) { // Year type
             $levels = [
                 ['id' => 1, 'name' => 'Year I'],
                 ['id' => 2, 'name' => 'Year II'],

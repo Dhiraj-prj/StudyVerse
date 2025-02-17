@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\ProgramController;
 
 
 Route::get('/', function () {
@@ -18,8 +18,8 @@ Route::get('/', function () {
 
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
-Route::get('faculty/{category_slug}', [FrontendController::class, 'ViewCategoryPost']);
-Route::get('faculty/{category_slug}/{post_slug}', [FrontendController::class, 'ViewPost']);
+Route::get('program/{Program_slug}', [FrontendController::class, 'ViewProgramPost']);
+Route::get('program/{Program_slug}/{post_slug}', [FrontendController::class, 'ViewPost']);
 
 //Comment System
 Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class,'store']);
@@ -37,13 +37,13 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
-    // Category Routes
-    Route::get('faculty', [CategoryController::class, 'index']);
-    Route::get('add-faculty', [CategoryController::class, 'create']);
-    Route::post('add-faculty', [CategoryController::class, 'store']);
-    Route::get('edit-faculty/{category_id}', [CategoryController::class, 'edit']);
-    Route::put('update-faculty/{category_id}', [CategoryController::class, 'update']);
-    Route::get('delete-faculty/{category_id}', [CategoryController::class, 'destroy']);
+    // Program Routes
+    Route::get('program', [ProgramController::class, 'index']);
+    Route::get('add-program', [ProgramController::class, 'create']);
+    Route::post('add-program', [ProgramController::class, 'store']);
+    Route::get('edit-program/{Program_id}', [ProgramController::class, 'edit']);
+    Route::put('update-program/{Program_id}', [ProgramController::class, 'update']);
+    Route::get('delete-program/{Program_id}', [ProgramController::class, 'destroy']);
 
     // Post Routes
     Route::get('post', [PostController::class, 'index']);
@@ -71,4 +71,4 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
 });
 
 // AJAX Route
-Route::get('/admin/get-levels/{categoryId}', [PostController::class, 'getLevels'])->name('admin.get-levels');
+Route::get('/admin/get-levels/{ProgramId}', [PostController::class, 'getLevels'])->name('admin.get-levels');

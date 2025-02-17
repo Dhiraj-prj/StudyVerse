@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default('0');
             $table->boolean('is_deleted')->default('0');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade'); // Reference to users table
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

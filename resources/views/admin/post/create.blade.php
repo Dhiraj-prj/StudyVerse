@@ -36,18 +36,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="faculty">Category</label>
-                        <select id="faculty" name="category_id" class="form-control">
-                            <option value="">Select Category</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        <label for="program">Program</label>
+                        <select id="program" name="Program_id" class="form-control">
+                            <option value="">Select Program</option>
+                            @foreach($categories as $Program)
+                                <option value="{{ $Program->id }}">{{ $Program->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="subcategory">Level</label>
-                        <select id="subcategory" name="subcategory" class="form-control">
+                        <label for="subProgram">Level</label>
+                        <select id="subProgram" name="subProgram" class="form-control">
                         </select>
                     </div>
 
@@ -118,20 +118,20 @@
     <!-- Script to handle dynamic level fetching -->
     <script>
 
-        // Listen for changes in the category dropdown
-        document.getElementById('faculty').addEventListener('change', function () {
-            var categoryId = this.value;  // Get selected category ID
-            // console.log(categoryId);
-            var subcategorySelect = document.getElementById('subcategory');
+        // Listen for changes in the Program dropdown
+        document.getElementById('program').addEventListener('change', function () {
+            var ProgramId = this.value;  // Get selected Program ID
+            // console.log(ProgramId);
+            var subProgramSelect = document.getElementById('subProgram');
 
             // Clear previous levels
-            subcategorySelect.innerHTML = '<option value="">Select Level</option>';
+            subProgramSelect.innerHTML = '<option value="">Select Level</option>';
 
-            // If no category is selected, stop the process
-            if (!categoryId) return;
+            // If no Program is selected, stop the process
+            if (!ProgramId) return;
 
-            // Fetch levels for the selected category
-            fetch(`/admin/get-levels/${categoryId}`)
+            // Fetch levels for the selected Program
+            fetch(`/admin/get-levels/${ProgramId}`)
         .then(response => response.json())
         .then(data => {
             // Check if the response contains data (levels)
@@ -141,17 +141,17 @@
                     var option = document.createElement('option');
                     option.value = level.id;  // Set the value as level ID
                     option.textContent = level.name;  // Set the display text as level name
-                    subcategorySelect.appendChild(option);  // Append to the subcategory select element
+                    subProgramSelect.appendChild(option);  // Append to the subProgram select element
                 });
             } else {
                 // If no levels found, show a message in the dropdown
-                subcategorySelect.innerHTML = '<option value="">No levels available</option>';
+                subProgramSelect.innerHTML = '<option value="">No levels available</option>';
             }
         })
         .catch(error => {
             // Handle error, show message in case of failure
             console.error('Error fetching levels:', error);
-            subcategorySelect.innerHTML = '<option value="">Error fetching levels</option>';
+            subProgramSelect.innerHTML = '<option value="">Error fetching levels</option>';
         });
         });
     </script>
