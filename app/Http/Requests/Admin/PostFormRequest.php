@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,21 +20,23 @@ class PostFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'name' => ['required','string'],
+        return [
+            'name' => ['required', 'string'],
             'subProgram' => ['required'],
-            'Program_id'=> ['required','integer'],
+            'Program_id' => ['required', 'integer'],
             'postType' => ['required'],
-            'slug'=> ['required','string'],
+            'slug' => ['required', 'string', 'unique:posts,slug'],
             'description' => ['required'],
-            'yt_iframe'=>['nullable','string'],
-            'meta_title'=>['string','required'],
-            'meta_description'=>['string','nullable'],
-            'meta_keyword'=>['string','nullable'],
-            'status'=>'nullable',
+            'yt_iframe' => ['nullable', 'string'],
+            'meta_title' => ['required', 'string'],
+            'meta_description' => ['nullable', 'string'],
+            'meta_keyword' => ['nullable', 'string'],
+            'status' => 'nullable|boolean',  // Use boolean validation for the status
 
+            // File validation
+            'files' => ['nullable', 'array'],
+            'files.*' => ['file', 'mimes:jpeg,png,jpg,pdf,docx', 'max:2048'],  // Max file size is 2MB
         ];
-
-        return $rules;
     }
+
 }

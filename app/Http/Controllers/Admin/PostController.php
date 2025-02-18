@@ -4,26 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use App\Models\Program;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\PostFormRequest;
+use App\Models\PostFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Program;
+use App\Http\Requests\Admin\PostFormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $posts = Post::where('is_deleted', false)->get();
         return view('admin.post.index', compact('posts'));
     }
 
-
     public function create()
     {
-        // Fetch categories that are active (status = 0) and not deleted
-        $categories = Program::where('status', 0)->where('is_deleted', 0)->get();
+        // Fetch programs that are active (status = 0) and not deleted
+        $programs = Program::where('status', 0)->where('is_deleted', 0)->get();
 
-        // Pass the categories to the Blade view
-        return view('admin.post.create', compact('categories'));
+        // Pass the programs to the Blade view
+        return view('admin.post.create', compact('programs'));
     }
 
     public function store(PostFormRequest $request)
@@ -31,12 +36,11 @@ class PostController extends Controller
         // Validate the request data
         $data = $request->validated();
 
-        // Save the data into the Post model
+        // Create the new post
         $post = new Post();
         $post->Program_id = $data['Program_id'];
         $post->subProgram = $data['subProgram'];
         $post->name = $data['name'];
-        $post->postType = $data['postType'];
         $post->slug = $this->generateSlug($data['name'], $data['slug'] ?? null);
         $post->description = $data['description'] ?? null;
         $post->yt_iframe = $data['yt_iframe'] ?? null;
@@ -45,61 +49,85 @@ class PostController extends Controller
         $post->meta_keyword = $data['meta_keyword'] ?? null;
         $post->status = $request->has('status') ? 1 : 0;
         $post->created_by = Auth::user()->id;
-
         $post->save();
 
-        $posts = Post::where('is_deleted', false)->get();
+        // Handle file uploads
+        if ($request->has('files')) {
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('post_files', 'public'); // Store file in 'post_files' folder
+                PostFile::create([
+                    'post_id' => $post->id,
+                    'file_path' => $path,
+                    'file_name' => $file->getClientOriginalName(),
+                ]);
+            }
+        }
 
-        // Redirect with a success message
-        session()->flash('message', 'Post created successfully.');
-        session()->regenerate();
-        return view('admin.post.index', compact('posts'));
+        // Redirect after post creation
+        return view('admin.post.index')->with('message', 'Post created successfully.');
     }
 
     public function edit($post_id)
     {
-        // Find the post by ID and return with categories
+        // Find the post by ID and return with programs
         $post = Post::find($post_id);
         if (!$post) {
             return redirect('admin/posts')->with('error', 'Post not found!');
         }
 
-        $categories = Program::all();
-        return view('admin.post.edit', compact('post', 'categories'));
+        $programs = Program::all();
+        return view('admin.post.edit', compact('post', 'programs'));
     }
 
-    public function update(PostFormRequest $request, $post_id)
+    public function update(Request $request, $postId)
     {
-        // Validate the request data
-        $data = $request->validated();
-
-        // Find the post by ID
-        $post = Post::find($post_id);
+        $post = Post::find($postId);
         if (!$post) {
-            return redirect('admin/post')->with('error', 'Post not found!');
+            return redirect('admin/posts')->with('error', 'Post not found!');
         }
 
-        // Update post fields with validated data
-        $post->name = $data['name'];
-        $post->postType = $data['postType'];
-        $post->slug = $this->generateSlug($data['name']);
-        $post->description = $data['description'];
-        $post->Program_id = $data['Program_id'];
-        $post->yt_iframe = $data['yt_iframe'];
-        $post->meta_title = $data['meta_title'];
-        $post->meta_description = $data['meta_description'];
-        $post->meta_keyword = $data['meta_keyword'];
+        // Update post details
+        $post->name = $request->name;
+        $post->Program_id = $request->Program_id;
+        $post->subProgram = $request->subProgram;
+        $post->postType = $request->postType;
+        $post->slug = $request->slug;
+        $post->description = $request->description;
+        $post->meta_title = $request->meta_title;
+        $post->meta_description = $request->meta_description;
+        $post->meta_keyword = $request->meta_keyword;
+        $post->status = $request->status ? 1 : 0;  // Set as 1 if checked, otherwise 0
+        $post->save();
 
-        // Update checkbox values
-        $post->status = $request->has('status'); // Active or not
+        // Handle file uploads if any
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+            foreach ($files as $file) {
+                if ($file->isValid()) {
+                    // Store file in the public disk and get the path
+                    $path = $file->store('uploads/posts', 'public');
+                    Log::info('File uploaded successfully: ' . $path);  // Debug log to check file upload
 
-        // Save the updated post
-        $post->update();
+                    // Create a new PostFile record
+                    $post->files()->create([
+                        'file_path' => $path,
+                        'file_name' => $file->getClientOriginalName(),
+                    ]);
+                } else {
+                    Log::error('File upload failed.');
+                }
+            }
+        }
 
-        return redirect('admin/post')->with('message', 'Post updated successfully!');
+        // Fetch updated posts and programs to pass to the view
+        $posts = Post::where('is_deleted', false)->get();
+        $programs = Program::all();
+
+        return view('admin.post.index', compact('posts', 'programs'))->with('success', 'Post updated successfully');
     }
 
-    public function destroy($post_id){
+    public function destroy($post_id)
+    {
         $post = Post::findOrFail($post_id);
         $post->is_deleted = true; // Soft delete
         $post->update();
@@ -107,24 +135,31 @@ class PostController extends Controller
         return redirect('admin/post')->with('destroy_message', 'Post deleted successfully.');
     }
 
-    private function generateSlug($name, $slug = null)
+    // File removal method
+    public function removeFile($post_id, $file_id)
     {
-        // If the slug is empty, generate it based on the name
-        if (empty($slug)) {
-            // Convert to lowercase, remove special characters, and replace spaces with hyphens
-            $slug = strtolower(trim($name)); // Lowercase and trim the name
-            $slug = preg_replace('/[^a-z0-9 -]/', '', $slug); // Remove special characters
-            $slug = preg_replace('/\s+/', '-', $slug); // Replace spaces with dashes
-            $slug = preg_replace('/-+/', '-', $slug); // Replace multiple dashes with a single one
-        }
+        $postFile = PostFile::findOrFail($file_id);
 
-        // Check if the slug already exists in the posts table, and append a number if necessary
-        $count = Post::where('slug', $slug)->count();
-        if ($count > 0) {
-            $slug .= '-' . ($count + 1); // Append a number to make the slug unique
-        }
+        // Delete file from storage
+        Storage::delete($postFile->file_path);
 
-        return $slug;
+        // Delete record from the database
+        $postFile->delete();
+
+        return back()->with('message', 'File removed successfully.');
+    }
+
+    // File viewing method
+    public function viewFile(PostFile $file)
+    {
+        $filePath = storage_path("app/{$file->file_path}");
+
+        // Check if the file exists
+        if (file_exists($filePath)) {
+            return response()->file($filePath);
+        } else {
+            return redirect()->back()->with('error', 'File not found.');
+        }
     }
 
     public function getLevels($ProgramId)
@@ -135,9 +170,6 @@ class PostController extends Controller
         if (!$Program) {
             return response()->json(['error' => 'Program not found'], 404); // Return error if Program not found
         }
-
-        // // Debugging output to check if Program levelType is correct
-        // \Log::info("Program LevelType: " . $Program->levelType);
 
         $levels = [];
         if ($Program->levelType == 1) { // Semester type
@@ -162,4 +194,35 @@ class PostController extends Controller
 
         return response()->json($levels); // Return levels as JSON
     }
+
+    private function generateSlug($name, $slug = null)
+    {
+        $slug = $slug ?? Str::slug($name); // Use the provided slug or generate it from the name
+
+        // Check if the slug already exists in the database
+        $originalSlug = $slug;
+        $count = Post::where('slug', $slug)->count();
+
+        // Append a number to make the slug unique
+        if ($count > 0) {
+            $slug = $originalSlug . '-' . ($count + 1);
+        }
+
+        return $slug;
+    }
+
+    public function deleteFile(Request $request, $id)
+{
+    $file = PostFile::find($id); // Ensure you're using the correct model
+    if ($file) {
+        Storage::delete('public/' . $file->file_path); // Delete from storage
+        $file->delete(); // Remove from database
+
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false, 'message' => 'File not found']);
+}
+
+
 }

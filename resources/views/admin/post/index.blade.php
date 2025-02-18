@@ -48,18 +48,24 @@
                         <tbody>
                             @foreach ($posts as $index => $post)
                             <tr>
-                                <td>{{ $index + 1}}</td>
-                                <td>{{ $post->name}}</td>
-                               <td>{{ optional($post->Program)->name }}</td>
-                                <td>{{ $post->subProgram }}</td>
-                                <td>{{ $post->status == '1' ? "Published" : "Draft"}}</td>
+
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $post->name }}</td>
+                                <td>{{ $post->program->name ?? 'N/A' }}</td>
+                                <td>{{ $post->subprogram }}</td>
+                                <td>{{ $post->status == '1' ? "Published" : "Draft" }}</td>
                                 <td>{{ $post->Created_by->name ?? 'N/A' }}</td>
                                 <td>
-                                    <a href="{{url('admin/edit-post/'.$post->id)}}"><button class="btn btn-success"><i class="fas fa-edit"></i></button></a>
-                                    <a href="{{url('admin/delete-post/'.$post->id)}}" onclick="return confirm('Are you sure you want to delete this post?')"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
+                                    <a href="{{ url('admin/edit-post/' . $post->id) }}">
+                                        <button class="btn btn-success"><i class="fas fa-edit"></i></button>
+                                    </a>
+                                    <a href="{{ url('admin/delete-post/' . $post->id) }}" onclick="return confirm('Are you sure you want to delete this post?')">
+                                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </a>
                                 </td>
                             </tr>
-                            @endforeach
+                        @endforeach
+
                         </tbody>
                     </table>
                 </div>

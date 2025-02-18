@@ -52,6 +52,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function() {
     Route::get('edit-post/{post_id}', [PostController::class, 'edit']);
     Route::put('edit-post/{post_id}', [PostController::class, 'update']);
     Route::get('delete-post/{post_id}', [PostController::class, 'destroy']);
+    Route::post('/admin/delete-file/{id}', [PostController::class, 'deleteFile'])->name('admin.delete-file');
+
 
     // User Routes
     Route::get('users', [UsersController::class, 'index']);

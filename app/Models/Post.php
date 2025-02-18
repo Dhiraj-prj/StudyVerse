@@ -30,9 +30,9 @@ class Post extends Model
     ];
 
     // Define the relationship with the Program model
-    public function Program()
+    public function program()
     {
-        return $this->belongsTo(Program::class, 'Program_id', 'id'); // Corrected the foreign and local keys
+        return $this->belongsTo(Program::class, 'program_id', 'id');
     }
 
 
@@ -50,4 +50,8 @@ class Post extends Model
         return $this->hasMany(Comment::class,'post_id','id');
     }
 
+    public function files()
+    {
+    return $this->hasMany(PostFile::class);
+    }
 }
