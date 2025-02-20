@@ -31,11 +31,15 @@ class Post extends Model
 
     // Define the relationship with the Program model
 
+    // public function program()
+    // {
+    //     return $this->belongsTo(Program::class, 'program_id');
+    // }
+
     public function program()
     {
-        return $this->belongsTo(Program::class, 'program_id');
+        return $this->belongsTo(Program::class, 'Program_id'); // Corrected to 'Program_id'
     }
-
 
     public function created_by()
     {

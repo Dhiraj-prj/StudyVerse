@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title',$setting->meta_title )
+@section('title', $setting->meta_title)
 
-@section('meta_description', $setting->meta_description )
+@section('meta_description', $setting->meta_description)
 
-@section('meta_keyword',$setting->meta_keyword)
+@section('meta_keyword', $setting->meta_keyword)
 
 @section('content')
 
@@ -34,8 +34,7 @@
             </div>
         </div>
     @endforeach
-    @endif
-
+@endif
 
 <!-- About Section -->
 <div class="py-4 bg-light lazy-bg" style="background-image: url('{{ asset('images/HomeAboutSection (1).png') }}'); background-size: cover; background-position: center;">
@@ -74,12 +73,7 @@
                     </div>
                 </div>
             @endforeach
-
-            <div class="text-center mt-4">
-                <a href="{{ url('program') }}" class="btn btn-primary custom-btn">See More</a>
-            </div>
         </div>
-
 
         <!-- Pagination for Programs -->
         <div class="row">
@@ -103,11 +97,14 @@
                 <div class="col-md-3 mb-4">
                     <div class="card border-0 rounded-lg shadow-sm hover-shadow">
                         <div class="card-body">
-                            <a href="{{ url('program/'.$post->program->slug.'/'.$post->slug) }}" class="text-decoration-none text-dark">
+
+
+                            <a href="{{ $post->program ? url('program/'.$post->program->slug.'/'.$post->slug) : '#' }}" class="text-decoration-none text-dark">
                                 <h5 class="mb-0">{{ $post->name }}</h5>
                             </a>
+
                             <p class="text-muted small mb-0">
-                                {{ \Illuminate\Support\Str::limit(strip_tags($post->description), 100, '...') }}
+                                {{ \Illuminate\Support\Str::limit(strip_tags($post->description ?? 'No description available'), 100, '...') }}
                             </p>
                         </div>
                     </div>
@@ -139,13 +136,33 @@
 
 @endsection
 
+
+
 <style>
     /* Hover effects */
-    .card:hover { transform: scale(1.05); }
-    .custom-btn:hover { transform: scale(1.1); opacity: 0.9; }
-    .bg-dark:hover { transform: translateY(-5px); }
-    .card-body:hover a { color: #007bff; text-decoration: underline; }
-    h3:hover { transform: scale(1.05); color: #0056b3; }
+    .card:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+    .custom-btn:hover {
+        transform: scale(1.1);
+        opacity: 0.9;
+        transition: transform 0.3s ease;
+    }
+    .bg-dark:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+    }
+    .card-body:hover a {
+        color: #007bff;
+        text-decoration: underline;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+    }
+    h3:hover {
+        transform: scale(1.05);
+        color: #0056b3;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
 </style>
 
 <script>

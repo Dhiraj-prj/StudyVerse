@@ -48,11 +48,12 @@ public function viewallpost()
     // Fetch all posts that are not hidden, including pagination
     $posts = Post::where('hideStatus', 0)->orderBy('created_at', 'desc')->paginate(10);
 
+    $program = Program::where('hideStatus', 0)->get();
     // Fetch the settings (meta data)
     $setting = Setting::Find(1);
 
     // Return the view with posts and settings
-    return view('frontend.post.viewallpost', compact('posts', 'setting'));
+    return view('frontend.post.viewallpost', compact('posts', 'setting','program'));
 }
 
     public function viewProgram(){

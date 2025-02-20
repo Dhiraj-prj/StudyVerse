@@ -17,9 +17,7 @@
                     <h4>{!! $post->name !!}</h4>
                 </div>
 
-                <div class="mt-3">
-                    <h6>{{ $post->Program->name . ' / ' . $post->name }}</h6>
-                </div>
+
 
                 <div class="card card-shadow">
                     <div class="card-body post-description">
@@ -29,7 +27,7 @@
 
 
                 <div class="mt-4">
-                    <h6>Associated Files</h6>
+                    <h4>Associated Files</h>
                     @if($files && $files->count() > 0)  <!-- Check if $files is not null and contains data -->
                         @foreach($files as $file)
                             <div class="file-iframe mb-3">
@@ -103,9 +101,9 @@
                     </div>
                     <div class="card-body">
                         @foreach ($latest_posts as $latest_post_item)
-                            <a href="{{ url('program/' . $latest_post_item->Program->slug . '/' . $latest_post_item->slug) }}" class="text-decoration-none">
-                                <h6>{{ $latest_post_item->name }}</h6>
-                            </a>
+                        <a href="{{ url('program/' . ($latest_post_item->Program ? $latest_post_item->Program->slug : 'default-slug') . '/' . $latest_post_item->slug) }}" class="text-decoration-none">
+                            <h6>{{ $latest_post_item->name }}</h6>
+                        </a>
                         @endforeach
                     </div>
                 </div>

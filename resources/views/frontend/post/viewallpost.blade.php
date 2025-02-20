@@ -21,13 +21,21 @@
 
                         <div class="Program-heading">
                             <h3>All Posts</h3>
+
                         </div>
                     @forelse ($posts as $postitem)
                         <div class="card card-shadow mt-4">
+
                             <div class="card-body">
-                                {{-- <a href="{{ url('program/'.$program->slug .'/' . $postitem->slug)}}" class="text-decoration-none"> --}}
+                                @if($program->isNotEmpty())
+                                <a href="{{ url('program/' . $program->first()->slug . '/' . $postitem->slug) }}" class="text-decoration-none">
                                     <h2 class="post-heading">{{ $postitem->name }}</h2>
                                 </a>
+                            @else
+                                <a href="#" class="text-decoration-none">
+                                    <h2 class="post-heading">{{ $postitem->name }}</h2>
+                                </a>
+                            @endif
                                 <div class="container">
                                     <div class="float-start">
                                         <h6>Posted on: {{ $postitem->created_at ->format('d-m-yy') }}</h6>
