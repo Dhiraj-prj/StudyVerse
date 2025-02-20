@@ -25,14 +25,15 @@ class Post extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
-        'status',
+        'hideStatus',
         'created_by',
     ];
 
     // Define the relationship with the Program model
+
     public function program()
     {
-        return $this->belongsTo(Program::class, 'program_id', 'id');
+        return $this->belongsTo(Program::class, 'program_id');
     }
 
 
@@ -52,6 +53,6 @@ class Post extends Model
 
     public function files()
     {
-    return $this->hasMany(PostFile::class);
+        return $this->hasMany(PostFile::class);
     }
 }

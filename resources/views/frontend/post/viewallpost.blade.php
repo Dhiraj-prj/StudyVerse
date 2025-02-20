@@ -1,25 +1,31 @@
 @extends('layouts.app')
 
-@section('title',$program->meta_title)
+@section('title',$setting->meta_title)
 
-@section('meta_description', "$program->meta_description")
+@section('meta_description', "$setting->meta_description")
 
-@section('meta_keyword', "$program->meta_keyword")
+@section('meta_keyword', "$setting->meta_keyword")
 
 @section('content')
 
+
+
     <div class="py-5">
+
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="Program-heading">
+                    {{-- <div class="Program-heading">
                         <h4>{{ $program->name }}</h4>
-                    </div>
+                    </div> --}}
 
+                        <div class="Program-heading">
+                            <h3>All Posts</h3>
+                        </div>
                     @forelse ($posts as $postitem)
                         <div class="card card-shadow mt-4">
                             <div class="card-body">
-                                <a href="{{ url('program/'.$program->slug .'/' . $postitem->slug)}}" class="text-decoration-none">
+                                {{-- <a href="{{ url('program/'.$program->slug .'/' . $postitem->slug)}}" class="text-decoration-none"> --}}
                                     <h2 class="post-heading">{{ $postitem->name }}</h2>
                                 </a>
                                 <div class="container">

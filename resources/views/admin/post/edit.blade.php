@@ -112,8 +112,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <input type="checkbox" name="status" {{ old('status', $post->status) ? 'checked' : '' }}>
-                            <label for="status">Active</label>
+                            <input type="checkbox" name="hideStatus" {{ old('status', $post->status) ? 'checked' : '' }}>
+                            <label for="status">Hide Post</label>
                         </div>
                     </div>
                 </div>

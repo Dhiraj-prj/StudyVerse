@@ -36,8 +36,8 @@ use App\Models\Level;
             $Program->meta_title = $data['meta_title'];
             $Program->meta_description = $data['meta_description'];
             $Program->meta_keyword = $data['meta_keyword'];
-            $Program->navbar_status = $request->has('navbar_status'); // This will be true if checked, false if not
-            $Program->status = $request->has('status'); // Same logic applies here
+            $Program->navbar_status = $request->has('navbarHiddenStatus'); // This will be true if checked, false if not
+            $Program->status = $request->has('hideStatus'); // Same logic applies here
             $Program->created_by = auth()->user()->id;
             $Program->save();
 
@@ -60,8 +60,8 @@ use App\Models\Level;
             $Program->meta_title = $data['meta_title'];
             $Program->meta_description = $data['meta_description'];
             $Program->meta_keyword = $data['meta_keyword'];
-            $Program->navbar_status = $request->has('navbar_status'); // This will be true if checked, false if not
-            $Program->status = $request->has('status'); // Same logic applies here
+            $Program->navbar_status = $request->has('navbarHiddenStatus'); // This will be true if checked, false if not
+            $Program->status = $request->has('hideStatus'); // Same logic applies here
             $Program->created_by = auth()->user()->id;
             $Program->update();
 

@@ -43,7 +43,7 @@
 
 
                 <div class="mb-3">
-                    <label for="status">Role</label>
+                    <label for="status">Active Status</label>
                     <select name="status" class="form-control">
                         <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>Active</option>
                         <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>Inactive</option>

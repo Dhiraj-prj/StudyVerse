@@ -1,17 +1,41 @@
 @extends('layouts.app')
 
-@section('title', "$setting->meta_title")
+@section('title',$setting->meta_title )
 
-<style>
-    /* Hover effects */
-    .card:hover { transform: scale(1.05); }
-        .custom-btn:hover { transform: scale(1.1); opacity: 0.9; }
-        .bg-dark:hover { transform: translateY(-5px); }
-        .card-body:hover a { color: #007bff; text-decoration: underline; }
-        h3:hover { transform: scale(1.05); color: #0056b3; }
-</style>
+@section('meta_description', $setting->meta_description )
+
+@section('meta_keyword',$setting->meta_keyword)
 
 @section('content')
+
+<!-- Program Heading -->
+@if(isset($program))
+    <div class="program-heading">
+        <h4>{{ $program->name }}</h4>
+    </div>
+@endif
+
+<!-- Posts Section -->
+@if(isset($posts) && count($posts) > 0)
+    @foreach ($posts as $postitem)
+        <div class="card card-shadow mt-4">
+            <div class="card-body">
+                <a href="{{ url('program/'.$program->slug .'/' . $postitem->slug)}}" class="text-decoration-none">
+                    <h2 class="post-heading">{{ $postitem->name }}</h2>
+                </a>
+                <div class="container">
+                    <div class="float-start">
+                        <h6>Posted on: {{ $postitem->created_at->format('d-m-Y') }}</h6>
+                    </div>
+                    <div class="float-end">
+                        <h6>Posted by: {{ $postitem->user->name }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    @endif
+
 
 <!-- About Section -->
 <div class="py-4 bg-light lazy-bg" style="background-image: url('{{ asset('images/HomeAboutSection (1).png') }}'); background-size: cover; background-position: center;">
@@ -22,30 +46,29 @@
                 <div class="underline"></div>
                 <p class="lead text-light">
                     StudyVerse is a comprehensive online learning platform designed to support students in their academic journey.
-                    We provide past questions, study notes, and syllabus to make learning more accessible.</p>
-                    <p class="lead text-light">Join us and enhance
-                    your learning experience with the tools and support you need to excel.
+                    We provide past questions, study notes, and syllabus to make learning more accessible.
                 </p>
+                <p class="lead text-light">Join us and enhance your learning experience with the tools and support you need to excel.</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- programs Section -->
+<!-- Programs Section -->
 <div class="py-4 bg-white mt-5 shadow-sm">
     <div class="container">
         <div class="row mb-5 text-center">
             <div class="col-md-12">
-                <h3 class="font-weight-bold text-dark">programs</h3>
+                <h3 class="font-weight-bold text-dark">Programs</h3>
                 <div class="underline mx-auto mb-4"></div>
             </div>
 
-            @foreach ($all_categories as $Program)
+            @foreach ($all_programs as $programItem)
                 <div class="col-md-3 mb-4">
                     <div class="card border-0 rounded-lg shadow-sm hover-shadow">
                         <div class="card-body text-center">
-                            <a href="{{ url('program/'.$Program->slug) }}" class="text-decoration-none text-dark">
-                                <h5 class="mb-0">{{ $Program->name }}</h5>
+                            <a href="{{ url('program/'.$programItem->slug) }}" class="text-decoration-none text-dark">
+                                <h5 class="mb-0">{{ $programItem->name }}</h5>
                             </a>
                         </div>
                     </div>
@@ -57,10 +80,11 @@
             </div>
         </div>
 
-        <!-- Pagination for programs -->
+
+        <!-- Pagination for Programs -->
         <div class="row">
             <div class="col-md-12 text-center">
-                {{ $all_categories->links('pagination::bootstrap-5') }}
+                {{ $all_programs->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
@@ -79,7 +103,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="card border-0 rounded-lg shadow-sm hover-shadow">
                         <div class="card-body">
-                            <a href="{{ url('program/'.$post->Program->slug.'/'.$post->slug) }}" class="text-decoration-none text-dark">
+                            <a href="{{ url('program/'.$post->program->slug.'/'.$post->slug) }}" class="text-decoration-none text-dark">
                                 <h5 class="mb-0">{{ $post->name }}</h5>
                             </a>
                             <p class="text-muted small mb-0">
@@ -114,6 +138,15 @@
 </div>
 
 @endsection
+
+<style>
+    /* Hover effects */
+    .card:hover { transform: scale(1.05); }
+    .custom-btn:hover { transform: scale(1.1); opacity: 0.9; }
+    .bg-dark:hover { transform: translateY(-5px); }
+    .card-body:hover a { color: #007bff; text-decoration: underline; }
+    h3:hover { transform: scale(1.05); color: #0056b3; }
+</style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {

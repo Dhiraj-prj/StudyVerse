@@ -12,8 +12,8 @@ class DashboardController extends Controller
     public function index()
     {
         // Pending counts
-        $pendingPosts = Post::where('status', 'pending')->count(); // Adjust based on your model
-        $pendingUsers = User::where('status', 'pending')->count(); // Correct the model to User
+        $pendingPosts = Post::where('hideStatus', '0')->count(); // Adjust based on your model
+        $pendingUsers = User::where('status', '0')->count(); // Correct the model to User
 
         // Total counts (existing)
         $categories = Program::count();

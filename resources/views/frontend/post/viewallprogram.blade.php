@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
-@section('title',$program->meta_title)
-
-@section('meta_description', "$program->meta_description")
-
-@section('meta_keyword', "$program->meta_keyword")
+@section('title', $setting->meta_title)
+@section('meta_description', $setting->meta_description)
+@section('meta_keyword', $setting->meta_keyword)
 
 @section('content')
 
@@ -12,22 +10,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="Program-heading">
-                        <h4>{{ $program->name }}</h4>
-                    </div>
-
-                    @forelse ($posts as $postitem)
+                    <h3>All Programs</h3>
+                    @forelse ($programs as $program)
                         <div class="card card-shadow mt-4">
                             <div class="card-body">
-                                <a href="{{ url('program/'.$program->slug .'/' . $postitem->slug)}}" class="text-decoration-none">
-                                    <h2 class="post-heading">{{ $postitem->name }}</h2>
+                                <a href="{{ url('program/'.$program->slug) }}" class="text-decoration-none">
+                                    <h2 class="post-heading">{{ $program->name }}</h2>
                                 </a>
                                 <div class="container">
                                     <div class="float-start">
-                                        <h6>Posted on: {{ $postitem->created_at ->format('d-m-yy') }}</h6>
+                                        <h6>Created on: {{ $program->created_at->format('d-m-yy') }}</h6>
                                     </div>
                                     <div class="float-end">
-                                        <h6>Posted by: {{ $postitem->user->name  }}</h6>
+                                        <h6>Status:
+                                            @if ($program->hideStatus == 0)
+                                                Active
+                                            @else
+                                                Hidden
+                                            @endif
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -35,15 +36,14 @@
                     @empty
                         <div class="card card-shadow mt-4">
                             <div class="card-body">
-                                <h2 class="post-heading">No posts available</h2>
+                                <h2 class="post-heading">No programs available</h2>
                             </div>
                         </div>
                     @endforelse
 
                     <div class="col-md-12 text-center">
-                        {{ $posts->links('pagination::bootstrap-5') }}
+                        {{ $programs->links('pagination::bootstrap-5') }}
                     </div>
-
                 </div>
 
                 <div class="col-md-3">
@@ -77,9 +77,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 @endsection
 

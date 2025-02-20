@@ -1,4 +1,6 @@
 @extends('layouts.inc.app')
+<link rel="shortcut icon" href="{{ asset('images/fevicon.ico') }}" type="image/x-icon">
+
 
 @section('content')
 <div class="container">
@@ -12,14 +14,14 @@
                         <div class="alert alert-danger" role="alert">
                             {{ session('status') }}
                         </div>
-                        
+
                     @else
                     <div class="alert alert-success" role="alert">
                         {{ __('You are logged in!') }}
-                   
+
                     @endif
 
-                   
+
                 </div>
             </div>
         </div>

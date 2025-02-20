@@ -30,8 +30,8 @@ class ProgramRequestForm extends FormRequest
             'meta_title' => ['required', 'string', 'max:200'],
             'meta_description' => ['required', 'string'],
             'meta_keyword' => ['required', 'string'],
-            'navbar_status' => ['nullable'],
-            'status' => ['nullable'],
+            'navbarHiddenStatus' => ['nullable'],
+            'hideStatus' => ['nullable'],
         ];
 
         // If the request is not updating (i.e., creating a new Program), make image required

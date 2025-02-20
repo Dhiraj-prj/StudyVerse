@@ -18,7 +18,9 @@ Route::get('/', function () {
 
 // Frontend Routes
 Route::get('/home', [FrontendController::class, 'index']);
+Route::get('program', [FrontendController::class, 'ViewProgram']);
 Route::get('program/{Program_slug}', [FrontendController::class, 'ViewProgramPost']);
+Route::get('posts', [FrontendController::class, 'ViewallPost']);
 Route::get('program/{Program_slug}/{post_slug}', [FrontendController::class, 'ViewPost']);
 
 //Comment System

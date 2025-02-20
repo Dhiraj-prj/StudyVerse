@@ -18,7 +18,7 @@
             @endif
 
             <!-- Form to create a post -->
-            <form method="POST" action="{{ route('admin.add-post') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('admin/add-post') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -94,8 +94,8 @@
                 <div class="row">
                     <div class="col-mod-4">
                         <div class="mb-3">
-                            <input type="checkbox" name="status">
-                            <label for="">Status</label>
+                            <input type="checkbox" name="hideStatus">
+                            <label for="">Hide Post</label>
                         </div>
                     </div>
                 </div>

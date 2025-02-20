@@ -18,8 +18,8 @@ class Program extends Model
         'meta_title',
         'meta_description',
         'meta_keyword',
-        'navbar_status',
-        'status',
+        'navbarHiddenStatus',
+        'hideStatus',
         'created_by', // Ensure this field is fillable
     ];
 

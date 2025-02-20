@@ -46,6 +46,7 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach ($posts as $index => $post)
                             <tr>
 

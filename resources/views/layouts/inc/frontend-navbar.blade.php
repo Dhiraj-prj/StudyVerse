@@ -10,11 +10,11 @@
                     <!-- programs Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            programs
+                            Programs
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             @php
-                                $categories = App\Models\Program::where("navbar_status", "0")->where('status', '0')->where('is_deleted','0')->get();
+                                $categories = App\Models\Program::where("navbarHiddenStatus", "0")->where('hideStatus', '0')->where('is_deleted','0')->get();
                             @endphp
 
                             @foreach($categories as $cateitem)

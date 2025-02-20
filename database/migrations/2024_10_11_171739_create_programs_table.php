@@ -20,8 +20,8 @@ return new class extends Migration
             $table->text('meta_description');
             $table->text('meta_keyword');
             $table->integer('levelType');
-            $table->tinyInteger('navbar_status')->default('0');
-            $table->tinyInteger('status')->default('0');
+            $table->tinyInteger('navbarHiddenStatus')->default('0');
+            $table->tinyInteger('hideStatus')->default('0');
             $table->boolean('is_deleted')->default('0');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade'); // Reference to users table
             $table->timestamps();

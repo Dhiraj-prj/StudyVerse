@@ -25,13 +25,13 @@ class PostFormRequest extends FormRequest
             'subProgram' => ['required'],
             'Program_id' => ['required', 'integer'],
             'postType' => ['required'],
-            'slug' => ['required', 'string', 'unique:posts,slug'],
+            'slug' => ['required', 'string', 'unique:post,slug'],
             'description' => ['required'],
             'yt_iframe' => ['nullable', 'string'],
             'meta_title' => ['required', 'string'],
             'meta_description' => ['nullable', 'string'],
             'meta_keyword' => ['nullable', 'string'],
-            'status' => 'nullable|boolean',  // Use boolean validation for the status
+            'hideStatus' => 'nullable|boolean',  // Use boolean validation for the status
 
             // File validation
             'files' => ['nullable', 'array'],

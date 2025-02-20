@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Admin\ProgramRequestForm;
 
 class AdminMiddleware
 {
@@ -18,15 +17,12 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            if (Auth::user()->role_as == '1') {
+            if (Auth::user()->role_as == 1) {
                 return $next($request);
-            } elseif (Auth::user()->role_as == '2') {
-                return redirect('/home')->with('status', "Access Denied! As you are not an admin");
             }
-        } else {
-            return redirect('/login')->with('status', "Please login to access the admin panel");
+            return redirect('/home')->with('status', "Access Denied! As you are not an admin");
         }
 
-        return $next($request);  // Ensure this is outside of the 'else' block
+        return redirect('/login')->with('status', "Please login to access the admin panel");
     }
 }

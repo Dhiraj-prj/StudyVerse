@@ -78,12 +78,12 @@
                     <div class="row">
 
                         <div class="col-md-3 mb-3">
-                            <input type="checkbox" name="navbar_status">
+                            <input type="checkbox" name="navbarHiddenStatus">
                             <label for="Navbar Status">Navbar Status</label>
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <input type="checkbox" name="status">
+                            <input type="checkbox" name="hideStatus">
                             <label for="Status">Status</label>
                         </div>
                     </div>

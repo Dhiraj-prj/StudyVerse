@@ -18,14 +18,15 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::where('is_deleted', false)->get();
+        $posts = Post::where('is_deleted', false)->where('hideStatus',0)->get();
+
         return view('admin.post.index', compact('posts'));
     }
 
     public function create()
     {
-        // Fetch programs that are active (status = 0) and not deleted
-        $programs = Program::where('status', 0)->where('is_deleted', 0)->get();
+        // Fetch programs that are active (hideStatus = 0) and not deleted
+        $programs = Program::where('hideStatus', 0)->where('is_deleted', 0)->get();
 
         // Pass the programs to the Blade view
         return view('admin.post.create', compact('programs'));
@@ -33,6 +34,7 @@ class PostController extends Controller
 
     public function store(PostFormRequest $request)
     {
+
         // Validate the request data
         $data = $request->validated();
 
@@ -47,7 +49,7 @@ class PostController extends Controller
         $post->meta_title = $data['meta_title'] ?? null;
         $post->meta_description = $data['meta_description'] ?? null;
         $post->meta_keyword = $data['meta_keyword'] ?? null;
-        $post->status = $request->has('status') ? 1 : 0;
+        $post->hideStatus = $request->has('hideStatus') ? 1 : 0;
         $post->created_by = Auth::user()->id;
         $post->save();
 
@@ -64,7 +66,7 @@ class PostController extends Controller
         }
 
         // Redirect after post creation
-        return view('admin.post.index')->with('message', 'Post created successfully.');
+        return redirect('admin/post')->with('message', 'Post created successfully.');
     }
 
     public function edit($post_id)
@@ -72,7 +74,7 @@ class PostController extends Controller
         // Find the post by ID and return with programs
         $post = Post::find($post_id);
         if (!$post) {
-            return redirect('admin/posts')->with('error', 'Post not found!');
+            return view('admin.post.edit')->with('error', 'Post not found!');
         }
 
         $programs = Program::all();
@@ -96,7 +98,7 @@ class PostController extends Controller
         $post->meta_title = $request->meta_title;
         $post->meta_description = $request->meta_description;
         $post->meta_keyword = $request->meta_keyword;
-        $post->status = $request->status ? 1 : 0;  // Set as 1 if checked, otherwise 0
+        $post->hideStatus = $request->hideStatus ? 1 : 0;  // Set as 1 if checked, otherwise 0
         $post->save();
 
         // Handle file uploads if any
