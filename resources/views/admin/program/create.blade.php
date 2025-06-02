@@ -26,7 +26,7 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="" class="mb-1">program Name</label>
+                        <label for="" class="mb-1">Program Name</label>
                         <input type="text" name="name" class="form-control">
                     </div>
 
@@ -79,12 +79,12 @@
 
                         <div class="col-md-3 mb-3">
                             <input type="checkbox" name="navbarHiddenStatus">
-                            <label for="Navbar Status">Navbar Status</label>
+                            <label for="Navbar Status">Hide from Navbar</label>
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <input type="checkbox" name="hideStatus">
-                            <label for="Status">Status</label>
+                            <label for="Status">Hide Post</label>
                         </div>
                     </div>
 

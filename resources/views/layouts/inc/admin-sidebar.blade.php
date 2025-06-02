@@ -16,7 +16,7 @@
                 <!-- program Section -->
                 <a class="nav-link {{ Request::is('admin/program', 'admin/add-program', 'admin/edit-program/*') ? 'active' : '' }}" href="{{ url('admin/program/') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
-                    program
+                    Program
                 </a>
 
                 <!-- Posts Section -->

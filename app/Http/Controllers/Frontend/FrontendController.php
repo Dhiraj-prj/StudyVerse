@@ -56,6 +56,33 @@ public function viewallpost()
     return view('frontend.post.viewallpost', compact('posts', 'setting','program'));
 }
 
+public function viewNoteById($note_id)
+{
+    // Fetch the note by ID (postType = 'note')
+    $note = Post::where('id', $note_id)
+        ->where('postType', 'note')
+        ->where('hideStatus', 0)
+        ->where('is_deleted', 0)
+        ->firstOrFail();
+
+    // Get associated program (optional, if notes belong to a program)
+    $program = Program::find($note->program_id);
+
+    // Get files attached to the note
+    $files = PostFile::where('post_id', $note->id)->get();
+
+    // Get latest note from the same program (if exists)
+    $latest_notes = Post::where('program_id', $note->program_id)
+        ->where('postType', 'note')
+        ->where('hideStatus', 0)
+        ->orderBy('created_at', 'DESC')
+        ->take(1)
+        ->get();
+
+    return view('frontend.notes.view', compact('note', 'program', 'files', 'latest_notes'));
+}
+
+
     public function viewProgram(){
         $programs = Program::where('hideStatus',0)->orderBy('created_at', 'desc')->paginate(10);;
         $setting = Setting::Find(1);

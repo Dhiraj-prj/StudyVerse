@@ -37,7 +37,7 @@
                         <thead>
                             <tr style="margin-top:10ox;">
                                 <th style="width: 10%;">S.N.</th>
-                                <th style="width: 30%;">program Name</th>
+                                <th style="width: 30%;">Program Name</th>
                                 <th style="width: 10%;">Level Type</th>
                                 <th style="width: 15%;">Status</th>
                                 <th style="width: 10%;">Created by</th>

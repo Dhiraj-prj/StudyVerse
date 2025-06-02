@@ -73,12 +73,12 @@
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <input type="checkbox" name="navbar_status" {{ $Program->navbar_status == '1' ? 'checked' : '' }}>
-                            <label for="Navbar Status">Navbar Status</label>
+                            <label for="Navbar Status">Hide from Navbar</label>
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <input type="checkbox" name="status" {{ $Program->status == '1' ? 'checked' : '' }}>
-                            <label for="Status">Status</label>
+                            <label for="Status">Hide Post</label>
                         </div>
                     </div>
 

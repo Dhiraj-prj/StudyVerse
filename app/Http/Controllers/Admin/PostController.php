@@ -45,6 +45,7 @@ class PostController extends Controller
         $post->name = $data['name'];
         $post->slug = $this->generateSlug($data['name'], $data['slug'] ?? null);
         $post->description = $data['description'] ?? null;
+        $post->postType = $data['postType'] ?? null;
         $post->yt_iframe = $data['yt_iframe'] ?? null;
         $post->meta_title = $data['meta_title'] ?? null;
         $post->meta_description = $data['meta_description'] ?? null;

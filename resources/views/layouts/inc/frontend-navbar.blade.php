@@ -1,24 +1,28 @@
 <div class="global-navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-3">
         <div class="container">
-            <a class="navbar-brand" href="/home">{{config('app.name')}}</a>
+            <a class="navbar-brand" href="/home">{{ config('app.name') }}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- programs Dropdown -->
+
+                    <!-- Programs Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Programs
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             @php
-                                $categories = App\Models\Program::where("navbarHiddenStatus", "0")->where('hideStatus', '0')->where('is_deleted','0')->get();
+                                $categories = App\Models\Program::where("navbarHiddenStatus", "0")
+                                    ->where('hideStatus', '0')
+                                    ->where('is_deleted', '0')
+                                    ->get();
                             @endphp
-
                             @foreach($categories as $cateitem)
-                                <li><a class="dropdown-item" href="{{url('program/'.$cateitem->slug)}}">{{$cateitem->name}}</a></li>
+                                <li><a class="dropdown-item" href="{{ url('program/' . $cateitem->slug) }}">{{ $cateitem->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -29,9 +33,16 @@
                             Notes
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="notesDropdown">
-                            <li><a class="dropdown-item" href="notes.html?program=BBS&program=yearly">BBS</a></li>
-                            <li><a class="dropdown-item" href="notes.html?program=BBA&program=semester">BBA</a></li>
-                            <li><a class="dropdown-item" href="notes.html?program=BCA&program=yearly">BCA</a></li>
+                            @php
+                                $notes = App\Models\Post::where('hideStatus', '0')
+                                    ->where('is_deleted', '0')
+                                    ->where('postType', 'note')
+                                    ->get();
+                            @endphp
+                            @foreach($notes as $post)
+                                <li><a class="dropdown-item" href="{{ route('view.note.by.id', $post->id) }}">{{ $post->name }}</a></li>
+                            @endforeach
+
                         </ul>
                     </li>
 
@@ -41,8 +52,8 @@
                             Past Questions
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="questionsDropdown">
-                            <li><a class="dropdown-item" href="past-questions.html?program=BBS&program=yearly">BBS</a></li>
-                            <li><a class="dropdown-item" href="past-questions.html?program=BBA&program=semester">BBA</a></li>
+                            <li><a class="dropdown-item" href="{{ url('past-questions?program=BBS&type=yearly') }}">BBS</a></li>
+                            <li><a class="dropdown-item" href="{{ url('past-questions?program=BBA&type=semester') }}">BBA</a></li>
                         </ul>
                     </li>
 
@@ -52,18 +63,23 @@
                             Syllabus
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="syllabusDropdown">
-                            <li><a class="dropdown-item" href="syllabus.html?program=BBS&program=yearly">BBS</a></li>
-                            <li><a class="dropdown-item" href="syllabus.html?program=BCA&program=semester">BCA</a></li>
+                            <li><a class="dropdown-item" href="{{ url('syllabus?program=BBS&type=yearly') }}">BBS</a></li>
+                            <li><a class="dropdown-item" href="{{ url('syllabus?program=BCA&type=semester') }}">BCA</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        @if (Auth::check())
-                        <li> <a class="nav-link btn-danger  text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout
+                    <!-- Logout -->
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link btn-danger text-white" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"> @csrf </form> </li>
-                            @endif
-                    </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

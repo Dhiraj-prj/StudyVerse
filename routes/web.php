@@ -22,6 +22,7 @@ Route::get('program', [FrontendController::class, 'ViewProgram']);
 Route::get('program/{Program_slug}', [FrontendController::class, 'ViewProgramPost']);
 Route::get('posts', [FrontendController::class, 'ViewallPost']);
 Route::get('program/{Program_slug}/{post_slug}', [FrontendController::class, 'ViewPost']);
+Route::get('view-note/{note_id}', [FrontendController::class, 'viewNoteById'])->name('view.note.by.id');//route to view notes
 
 //Comment System
 Route::post('comments', [App\Http\Controllers\Frontend\CommentController::class,'store']);
